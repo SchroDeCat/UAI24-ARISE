@@ -508,4 +508,4 @@ class Saddle_var(problem):
         return rgt1 - val1 + rgt2 - val2
 
 
-ignore_list = ['random']
+ignore_list = ['random', 'ts', 'ucb']
