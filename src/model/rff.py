@@ -16,7 +16,7 @@ class RFFGPRegressionModel(ExactGPRegressionModel):
             output_scale = output_scale_constraint if output_scale_constraint else gpytorch.constraints.Interval(0.7,5.0)
             num_samples = kwargs.get("num_samples", 10)
             if low_dim:
-                self.covar_module = gpytorch.kernels.ScaleKernel(  # Use the same lengthscale prior as in the TuRBO paper
+                self.covar_module = gpytorch.kernels.ScaleKernel( 
                                         gpytorch.kernels.RFFKernel(num_samples=num_samples,
                                             num_dims=train_x.size(-1), 
                                         ), 
@@ -28,5 +28,4 @@ class RFFGPRegressionModel(ExactGPRegressionModel):
             except Exception: # gpytorch 1.9.1
                 self.mean_module = gpytorch.means.ConstantMean()
 
-            # This module will scale the NN features so that they're nice values
             self.scale_to_bounds = gpytorch.utils.grid.ScaleToBounds(-1., 1.)

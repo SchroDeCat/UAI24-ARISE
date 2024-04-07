@@ -68,7 +68,6 @@ class BO_NE():
             self.interpolation_y_list = [None for _ in range(self.model_num)]
             interpolate_y = init_x.clone()
             interpolate_d_list = [init_y.clone().reshape([self.init_x.size(0)]) for init_y in init_y_list]
-            # _kernel = 'cubic' if self.init_x.size(0) > self.init_x.size(1) else 'linear'
             _kernel = 'linear'
             self.interpolator_list = [RBFInterpolator(y=interpolate_y, d=interpolate_d, smoothing=1e-4, kernel=_kernel) for interpolate_d in interpolate_d_list]
             for idx in range(self.model_num):
@@ -165,7 +164,6 @@ class BO_NE():
         # optimizer
         if self.gp_type == 'dk' and self.spectrum_norm:
             self.optimizer = SGLD(self.models.parameters(), lr=self.lr)
-            # self.optimizer = torch.optim.Adam(params=self.models.parameters(), lr=self.lr)
         else:
             self.optimizer = torch.optim.Adam(params=self.models.parameters(), lr=self.lr)
         
@@ -186,8 +184,6 @@ class BO_NE():
             # Get output from model
             self.output = self.models(*self.models.train_inputs)
             # Calc loss and backprop derivatives
-            # if torch.cuda.is_available():
-            #     self.models.train_targets_on_device = [train_target.to(DEVICE) for train_target in self.models.train_targets]
             self.loss = self.loss_func(self.output, self.models.train_targets)#_on_device)
             self.loss.backward()
             self.optimizer.step()
@@ -284,8 +280,6 @@ class BO_NE():
             lcb = self._interpolation_calibrate(test_x=_test_x, target_value=lower, cuda=self.cuda, model_idx=model_idx)
             ucb = self._interpolation_calibrate(test_x=_test_x, target_value=upper, cuda=self.cuda, model_idx=model_idx)
 
-            # _partial_argmax_ucb, _partial_ucb = self.optimize_action_set(_test_x, ucb, model_idx, return_index=True)
-            # _partial_lcb = lcb[_partial_argmax_ucb]
             _partial_ucb = self.optimize_action_set(_test_x, ucb, model_idx, return_index=False)
             _partial_lcb = self.optimize_action_set(_test_x, lcb, model_idx, return_index=False)
             _partial_lcb_f = _partial_lcb - ucb 
@@ -301,13 +295,6 @@ class BO_NE():
         if self._roi_filter.sum() < minimum_choice:
             self._roi_filter = torch.argsort(self._lcb_f, descending=False)[:minimum_choice]
             self._roi_filter = torch.zeros(_test_x.size(0)).bool().scatter_(0, self._roi_filter, True)
-            
-        # # avoid duplicate operations
-        # _subsample = 'subsample_num' in kwargs
-        # if _subsample:
-        #     kwargs.pop('subsample_num')
-        # kwargs['no_scaling'] = True
-        # return self.query(_test_x[self._roi_filter], acq='ucb', **kwargs)
         
         # maximize the acquisition function
         on_roi = kwargs.get('on_roi', True) # allow ablation study
@@ -408,13 +395,10 @@ class BO_NE():
                     _std2 = observed_pred.stddev.mul_(beta) # default is 2
                     _mean = observed_pred.mean
                     lower, upper = _mean.sub(_std2), _mean.add(_std2)
-                    # lower, upper = observed_pred.confidence_region() # 2 standard 
 
                 lcb = self._interpolation_calibrate(test_x=_test_x, target_value=lower, cuda=self.cuda, model_idx=model_idx)
                 ucb = self._interpolation_calibrate(test_x=_test_x, target_value=upper, cuda=self.cuda, model_idx=model_idx)
                 if acq.lower() in ['ucb', 'lcb']:
-                    # _partial_argmax_ucb, _ = self.optimize_action_set(_test_x, ucb, model_idx, return_index=True)
-                    # _partial_lcb = lcb[_partial_argmax_ucb]
                     _partial_lcb = self.optimize_action_set(_test_x, ucb, model_idx, return_index=False)
                     acq_val = _partial_lcb - ucb # argmin (lcb_partial - ucb global)
                     
@@ -484,19 +468,6 @@ class BO_NE():
                 likelihood.eval()
                 observed_pred = likelihood(model(_test_x))
                 lower, upper = observed_pred.confidence_region()
-                # for model_idx, (model, likelihood) in enumerate(zip(self.models.models, self.likelihoods.likelihoods)):
-                    # observed_pred = likelihood(model(_test_x))
-                    # lower, upper = observed_pred.confidence_region()
-                    # lcb, ucb = lower, upper
-                    # lcb = self._interpolation_calibrate(test_x=_test_x, target_value=lower, cuda=self.cuda, model_idx=model_idx)
-                    # ucb = self._interpolation_calibrate(test_x=_test_x, target_value=upper, cuda=self.cuda, model_idx=model_idx)
-                    # _min_lcb = -self.optimize_action_set(_test_x, -lcb, model_idx)
-                    # _min_lcb = lcb
-                    # acq_val = _min_lcb - ucb # argmin (lcb_partial - ucb global)
-                    # acq_vals += acq_val
-                
-                # return acq_vals
-                # return lcb
                 return lower
         
             # randomly pick one initial point

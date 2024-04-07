@@ -13,28 +13,10 @@ class LargeFeatureExtractor(torch.nn.Sequential):
         self.add_module('linear1', add_spectrum_norm(torch.nn.Linear(data_dim, 10000)))
         self.add_module('Sig0', torch.nn.Sigmoid())
         self.add_module('linear2',  add_spectrum_norm(torch.nn.Linear(10000, 100)))
-        # self.add_module('Sig1', torch.nn.Sigmoid())
-        # self.add_module('linear3',  add_spectrum_norm(torch.nn.Linear(1000, 500)))
-        # self.add_module('linear3',  add_spectrum_norm(torch.nn.Linear(10000, 50)))
-        # self.add_module('Sig3', torch.nn.Sigmoid())
-        # self.add_module('linear_ad1',  add_spectrum_norm(torch.nn.Linear(500, 500)))
-        # self.add_module('Sig4', torch.nn.Sigmoid())
-        # self.add_module('linear_ad2',  add_spectrum_norm(torch.nn.Linear(500, 200)))
-        # self.add_module('Sig5', torch.nn.Sigmoid())
-        # self.add_module('linear_ad3',  add_spectrum_norm(torch.nn.Linear(200, 200)))
-        # self.add_module('Sig6', torch.nn.Sigmoid())
-        # self.add_module('linear_ad4',  add_spectrum_norm(torch.nn.Linear(200, 200)))
-        # self.add_module('Sig7', torch.nn.Sigmoid())
-        # self.add_module('linear_ad5',  add_spectrum_norm(torch.nn.Linear(500, 100)))
-        # self.add_module('Sig8', torch.nn.Sigmoid())
-        # self.add_module('linear_ad6',  add_spectrum_norm(torch.nn.Linear(100, 50)))
-        # test if using higher dimensions could be better
         if low_dim:
-            # self.add_module('relu3', torch.nn.ReLU())
             self.add_module('relu3', torch.nn.LeakyReLU(negative_slope=.1))
             self.add_module('linear4',  add_spectrum_norm(torch.nn.Linear(100, 1)))
         else:
-            # self.add_module('relu3', torch.nn.LeakyReLU(negative_slope=.1))
             self.add_module('linear4',  add_spectrum_norm(torch.nn.Linear(100, 10)))
 
 
@@ -56,19 +38,12 @@ class ComplexFeatureExtractor(torch.nn.Sequential):
         self.add_module('Sig3', torch.nn.Sigmoid())
         self.add_module('linear_ad1',  add_spectrum_norm(torch.nn.Linear(100, 100)))
         self.add_module('Sig4', torch.nn.Sigmoid())
-        # self.add_module('linear_ad2',  add_spectrum_norm(torch.nn.Linear(500, 200)))
-        # self.add_module('Sig5', torch.nn.Sigmoid())
-        # self.add_module('linear_ad3',  add_spectrum_norm(torch.nn.Linear(200, 200)))
-        # self.add_module('Sig6', torch.nn.Sigmoid())
-        # self.add_module('linear_ad4',  add_spectrum_norm(torch.nn.Linear(200, 200)))
         self.add_module('Sig7', torch.nn.Sigmoid())
         self.add_module('linear_ad5',  add_spectrum_norm(torch.nn.Linear(100, 100)))
         self.add_module('Sig8', torch.nn.Sigmoid())
         self.add_module('linear_ad6',  add_spectrum_norm(torch.nn.Linear(100, 50)))
         # test if using higher dimensions could be better
         if low_dim:
-            # self.add_module('relu3', torch.nn.ReLU())
-            # self.add_module('relu3', torch.nn.LeakyReLU(negative_slope=.1))
             self.add_module('linear4',  add_spectrum_norm(torch.nn.Linear(50, 1)))
         else:
             self.add_module('relu3', torch.nn.LeakyReLU(negative_slope=.1))
@@ -95,10 +70,7 @@ class SimFeatureExtractor(torch.nn.Sequential):
         self.add_module('Tanh1', torch.nn.Tanh())
         self.add_module('linear4',  add_spectrum_norm(torch.nn.Linear(20, 10)))
         self.add_module('drop4', torch.nn.Dropout(p=.1))
-        # test if using higher dimensions could be better
         if low_dim:
-            # self.add_module('relu3', torch.nn.ReLU())
-            # self.add_module('relu3', torch.nn.LeakyReLU(negative_slope=.1))
             self.add_module('linear5',  add_spectrum_norm(torch.nn.Linear(10, 1)))
         else:
             self.add_module('relu3', torch.nn.LeakyReLU(negative_slope=.1))
@@ -137,10 +109,8 @@ class DeepSimFeatureExtractor(torch.nn.Sequential):
         self.add_module('Sig7', torch.nn.Sigmoid())
         self.add_module('linear8',  add_spectrum_norm(torch.nn.Linear(20, 10)))
         self.add_module('drop8', torch.nn.Dropout(p=.1))
-        # test if using higher dimensions could be better
+
         if low_dim:
-            # self.add_module('relu3', torch.nn.ReLU())
-            # self.add_module('relu3', torch.nn.LeakyReLU(negative_slope=.1))
             self.add_module('linear_last',  add_spectrum_norm(torch.nn.Linear(10, 1)))
         else:
             self.add_module('relu3', torch.nn.LeakyReLU(negative_slope=.1))
@@ -167,10 +137,7 @@ class AutoDeepSimFeatureExtractor(torch.nn.Sequential):
 
         self.add_module('linear_last0',  add_spectrum_norm(torch.nn.Linear(20, 10)))
         self.add_module('drop_last0', torch.nn.Dropout(p=.1))
-        # test if using higher dimensions could be better
         if low_dim:
-            # self.add_module('relu3', torch.nn.ReLU())
-            # self.add_module('relu3', torch.nn.LeakyReLU(negative_slope=.1))
             self.add_module('linear_last',  add_spectrum_norm(torch.nn.Linear(10, 1)))
         else:
             self.add_module('relu3', torch.nn.LeakyReLU(negative_slope=.1))
