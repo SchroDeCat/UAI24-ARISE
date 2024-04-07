@@ -1,10 +1,10 @@
 # UAI24-rebuttal
 
-This includes the updated implementation of ARISE, and latest results on 3-player scenarios in hotelling and budget allocation games.
+This includes the updated implementation of ARISE and the latest results on 3-player scenarios in hotelling and budget allocation games.
 
 ## 3-player results
 
-The following figure ![summary_regret_rebuttal](summary_regrets_uai_rebuttal.png) shows collective results on 10 independent trails on each tasks. We highlight ARISE's simple regret curve. It shows that consistent with our previous result, ARISE outperforms or at least matches the best baseline method's performance.
+The following figure![summary_regret_rebuttal](summary_regrets_uai_rebuttal.png) shows collective results on ten independent trials on each task. We highlight ARISE's simple regret curve. It shows that consistent with our previous result, ARISE outperforms or at least matches the best baseline method's performance.
 
 ## Environment
 
@@ -14,7 +14,7 @@ The implementation has been tested on M1 Pro with 16GB RAM and macOS 14.2.1 (23C
 conda env create -f environment.yml
 ```
 
-## Here are instructions of running the algorithm
+## Here are instructions for running the algorithm
 
 ```shell
 # Generate visualization on pre-computed results 
