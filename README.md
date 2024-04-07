@@ -4,7 +4,7 @@ This includes the updated implementation of ARISE and the latest results on 3-pl
 
 ## 3-player results
 
-The following figure![summary_regret_rebuttal](summary_regrets_uai_rebuttal.png) shows collective results on ten independent trials on each task. We highlight ARISE's simple regret curve. It shows that consistent with our previous result, ARISE outperforms or at least matches the best baseline method's performance.
+The following figure![summary_regret_rebuttal](./summary_regrets_uai_rebuttal.png) shows collective results on ten independent trials on each task. We highlight ARISE's simple regret curve. It shows that consistent with our previous result, ARISE outperforms or at least matches the best baseline method's performance.
 
 ## Environment
 
