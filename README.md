@@ -21,8 +21,8 @@ conda env create -f environment.yml
 python visualize_uai_rebuttal.py
 
 # All algorithms (Hotelling)
-python test_3_player.py --opt_steps=100 --n_repeat=10 --task=hotelling
+python test_3_player.py --task=hotelling  --train_iter=10 --n_repeat=10 --opt_steps=200 --lr=1e-2 --retrain_interval=1 --interpolate --n_init=10
 
 # All algorithms (BudgetAllocation)
-python test_3_player.py --opt_steps=10 --n_repeat=10 --task=BudgetAllocation --subsample
+python test_3_player.py --task=BudgetAllocation  --train_iter=10 --n_repeat=10 --opt_steps=200 --lr=1e-2 --retrain_interval=1 --interpolate --n_init=10
 ```
