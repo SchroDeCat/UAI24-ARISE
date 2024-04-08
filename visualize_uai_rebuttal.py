@@ -26,7 +26,6 @@ ACQ_TRANSLATION = {'random': 'Random',
 
 
 
-
 regret_summary = dict()
 fontsize=15
 def load_and_plot(regret_summary, task, ax, file_pattern, scale='linear', xlim=50, title='debug', idx=0):
@@ -36,9 +35,11 @@ def load_and_plot(regret_summary, task, ax, file_pattern, scale='linear', xlim=5
 
     for file in files:
         _tmp = load_data(file)
+        if task not in _tmp.keys():
+            continue
         for _method in _tmp[task].keys():
         # _method = list(_tmp[task].keys())[0]
-            if _method in ignore_list: # skip obsolete methods
+            if _method in ignore_list: # skip random
                 continue
             if _method == 'ballet' and 'roi' not in file: # identify local
                 regret_summary[task]['ballet-local'] = _tmp[task][_method]
@@ -77,9 +78,9 @@ def load_and_plot(regret_summary, task, ax, file_pattern, scale='linear', xlim=5
 fig = plt.figure(figsize=(10, 5))
 ax_list = [plt.subplot(1, 2, idx) for idx in range(1, 3)]
 
-ax_list[0].set_ylabel('$f(x)$', fontsize=fontsize)
-load_and_plot(regret_summary=regret_summary, ax=ax_list[0], idx='c', task = 'hotelling', file_pattern= f"results/uai_rebuttal/*_3P_dk_SimReg_B2_R10_OS100_TI10_RI10_NI10_*.p", scale='linear', xlim=60, title='HOTEELLING (3P)')
-load_and_plot(regret_summary=regret_summary, ax=ax_list[1], idx='d', task = 'BudgetAllocation', file_pattern= f"results/uai_rebuttal/*_3P_dk_SimReg_B2_R10_OS10_TI10_RI10_NI10_SS_*.p", scale='linear', xlim=10, title='BUDGET ALLOCATION (3P)')
+
+load_and_plot(regret_summary=regret_summary, ax=ax_list[0], idx='c', task = 'hotelling', file_pattern= f"results/uai_rebuttal/*_3P_dk_SimReg_B2_R10_OS200_TI10_RI1_NI10_IP*.p", scale='linear', xlim=200, title='HOTEELLING (3P)')
+load_and_plot(regret_summary=regret_summary, ax=ax_list[1], idx='d', task = 'BudgetAllocation', file_pattern= f"results/uai_rebuttal/*_3P_dk_SimReg_B2_R10_OS200_TI10_RI1_NI10_IP_*.p", scale='log', xlim=200, title='BUDGET ALLOCATION (3P)')
 
 # set legend position in the upper middle among all the subplots
 handles, labels = ax_list[0].get_legend_handles_labels()
