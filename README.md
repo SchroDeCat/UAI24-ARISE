@@ -3,7 +3,7 @@
 This repository contains the implementation of the Adaptive Region of Interest Search for Nash Equilibrium (ARISE) algorithm. The ARISE algorithm was proposed in the paper [No-Regret Learning of Nash Equilibrium for Black-Box Games via Gaussian Processes](https://arxiv.org/abs/2405.08318), which was published at the 40th Conference on Uncertainty in Artificial Intelligence (UAI 2024).
 
 ```
-@InProceedings{han23no-regret,
+@InProceedings{han24no-regret,
   title = 	 {No-Regret Learning of Nash Equilibrium for Black-Box Games via Gaussian Processes},
   author =       {Han, Minbiao and Zhang, Fengxue and Chen, Yuxin},
   booktitle = 	 {Proceedings of the 40th Conference on Uncertainty in Artificial Intelligence},
