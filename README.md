@@ -1,10 +1,19 @@
-# UAI24-rebuttal
+# UAI24-ARISE
 
-This includes the updated implementation of ARISE and the latest results on 3-player scenarios in hotelling and budget allocation games.
+This repository contains the implementation of the Adaptive Region of Interest Search for Nash Equilibrium (ARISE) algorithm. The ARISE algorithm was proposed in the paper [No-Regret Learning of Nash Equilibrium for Black-Box Games via Gaussian Processes](https://arxiv.org/abs/2405.08318), which was published at the 40th Conference on Uncertainty in Artificial Intelligence (UAI 2024).
 
-## 3-player results
-
-The following figure![summary_regret_rebuttal](./summary_regrets_uai_rebuttal.png) shows collective results on ten independent trials on each task. We highlight ARISE's simple regret curve. It shows that consistent with our previous result, ARISE outperforms or at least matches the best baseline method's performance.
+```
+@InProceedings{han23no-regret,
+  title = 	 {No-Regret Learning of Nash Equilibrium for Black-Box Games via Gaussian Processes},
+  author =       {Han, Minbiao and Zhang, Fengxue and Chen, Yuxin},
+  booktitle = 	 {Proceedings of the 40th Conference on Uncertainty in Artificial Intelligence},
+  year = 	 {2024},
+  series = 	 {Proceedings of Machine Learning Research},
+  publisher =    {PMLR},
+  pdf = 	 {https://arxiv.org/pdf/2405.08318},
+  url = 	 {https://arxiv.org/abs/2405.08318}
+}
+```
 
 ## Environment
 
